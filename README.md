@@ -1,42 +1,48 @@
-# 🌦️ Weather MCP Server
+🌦️ Weather MCP Server (Learning Project)
 
-A simple **Model Context Protocol (MCP)** server built in Python that provides real-time U.S. weather alerts and integrates directly with **Claude Desktop**.
+A simple Model Context Protocol (MCP) server built in Python that fetches real-time weather alerts from the U.S. National Weather Service (NWS) API and exposes them as tools inside Claude Desktop.
 
-This project was created as a **learning implementation** to understand MCP servers, stdio-based tool execution, and Claude Desktop integration.
+This project was built as part of learning MCP architecture, stdio-based tool servers, and Claude Desktop integration.
 
----
+✨ Features
 
-## 🚀 Overview
+MCP server built using FastMCP
 
-The Weather MCP Server fetches active weather alerts from the **U.S. National Weather Service (NWS) API** and exposes them as callable tools using the Model Context Protocol.  
-Once installed, the tool becomes available directly inside Claude Desktop without running a web server.
+Exposes a tool to fetch active weather alerts for U.S. states
 
----
+Integrates directly with Claude Desktop via mcp install
 
-## ✨ Features
+Uses async HTTP requests with httpx
 
-- MCP server built using **FastMCP**
-- Fetches real-time weather alerts by U.S. state code
-- Runs over **stdio** (no HTTP ports required)
-- Direct integration with **Claude Desktop**
-- Clean and beginner-friendly implementation
+Clean, minimal, and beginner-friendly MCP example
 
----
+🧠 What I Learned
 
-## 🛠️ Tech Stack
+How MCP servers work over stdio (no HTTP ports)
 
-- Python 3.10+
-- Model Context Protocol (MCP)
-- FastMCP
-- uv
-- httpx
-- Claude Desktop
+Writing MCP tools using decorators
 
----
+Integrating MCP servers with Claude Desktop
 
-## 📂 Project Structure
+Using uv for clean Python execution and CLI tooling
 
-```text
+Debugging Windows-specific permission and PATH issues
+
+🛠️ Tech Stack
+
+Python 3.10+
+
+Model Context Protocol (MCP)
+
+FastMCP
+
+uv
+
+httpx
+
+Claude Desktop
+
+📁 Project Structure
 MCP/
 │
 ├── server/
@@ -44,10 +50,19 @@ MCP/
 │
 ├── venv/                 # (optional) local virtual environment
 │
-└── req.txt               # Dependencies (reference)
+└── req.txt               # Dependencies (for reference)
 
+⚙️ Prerequisites
 
-⚙️ Installation
+Windows
+
+Python 3.10+
+
+Claude Desktop (installed)
+
+PowerShell
+
+🚀 Step-by-Step Installation (Windows)
 1️⃣ Install uv
 
 Open PowerShell and run:
@@ -59,44 +74,50 @@ Restart PowerShell and verify:
 
 uv --version
 
-2️⃣ Install MCP CLI dependencies
+2️⃣ Install MCP CLI (with CLI extras)
 
-Open PowerShell as Administrator and run:
+Run PowerShell as Administrator, then:
 
 uv pip install "mcp[cli]" --system
 
 
-This installs the MCP CLI along with required dependencies such as typer.
+This installs the MCP CLI required for mcp install.
 
-3️⃣ Navigate to the project directory
+3️⃣ Navigate to Project Directory
 cd C:\Users\Dell\Desktop\MCP
 
-4️⃣ Register the MCP server with Claude Desktop
+4️⃣ Install MCP Server into Claude Desktop
 uv run mcp install server/weather.py
 
 
-If successful, you will see a confirmation message indicating the server was added to Claude.
+You should see:
+
+Successfully installed weather in Claude app
 
 5️⃣ Restart Claude Desktop
 
-Close Claude Desktop completely and reopen it.
-The Weather MCP Server will now be available under Tools.
+Close Claude Desktop completely
 
-🧪 Usage
+Reopen it
 
-Once installed, you can call the MCP tool directly from Claude Desktop.
+Navigate to Tools
 
-Example prompt:
+You should now see:
 
-Get weather alerts for CA
+weather
 
 
-Claude will invoke the MCP tool and return formatted weather alerts.
+🎉 The MCP server is now connected.
 
-📝 Notes
+🧪 Example Usage (Inside Claude Desktop)
 
-This MCP server runs over stdio and does not expose network ports.
+Ask Claude:
 
-No manual Claude configuration is required when using mcp install.
+“Get weather alerts for CA”
 
-MCP Inspector is optional and only needed for debugging.
+Claude will automatically call the MCP tool:
+
+get_alerts(state="CA")
+
+
+and return formatted weather alerts.
